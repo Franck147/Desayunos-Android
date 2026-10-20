@@ -1,42 +1,41 @@
 // ============================================================
 //  build.gradle — Módulo :app
-//  TecrobSys - Sistema de Gestión de Taller Técnico
-//  Material Design 3 | Java 21 | minSdk 26 | targetSdk 34
+//  Desayunos - Sistema de Desayunos (Cliente y Cocinero)
 // ============================================================
 plugins {
-    id 'com.android.application'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace 'com.example.tecrobsys'
-    compileSdk 34
+    namespace 'com.example.desayuno'
+    compileSdk 36
 
     defaultConfig {
-        applicationId "com.example.tecrobsys"
+        applicationId "com.example.desayuno"
         minSdk 26
         targetSdk 34
         versionCode 1
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        // ── Claves de Supabase ────────────────────────────────
-        // Reemplaza con tus valores reales:
-        // supabase.com → tu proyecto → Settings → API
-        buildConfigField "String", "SUPABASE_URL",      '"https://cgjzbwqoeyqtvnfspybg.supabase.co"'
-        buildConfigField "String", "SUPABASE_ANON_KEY", '"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnanpid3FvZXlxdHZuZnNweWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NDQxMTQsImV4cCI6MjA5MDQyMDExNH0.U2ZL7VXng-w6xH6UXbca-mgmQlZl6V5JFX5MFemIk3s"'
     }
 
     buildFeatures {
-        // ViewBinding: acceso seguro a vistas sin usar findViewById
         viewBinding true
-        // BuildConfig: permite leer las claves de Supabase en Java
         buildConfig true
+        compose true
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_21
         targetCompatibility JavaVersion.VERSION_21
+    }
+
+    packaging {
+        jniLibs {
+            keepDebugSymbols += "**/*.so"
+        }
     }
 
     buildTypes {
@@ -49,59 +48,43 @@ android {
 }
 
 dependencies {
-
     // ── Android base ──────────────────────────────────────────
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.activity:activity:1.9.0'
-
-    // ── Material Design 3 ─────────────────────────────────────
-    // Incluye todos los componentes M3:
-    // Botones, Chips, Cards, TextFields, BottomNavigation,
-    // FAB, Dialogs, Snackbars, TopAppBar, NavigationBar
-    implementation 'com.google.android.material:material:1.11.0'
-    // ── Navegación entre Fragmentos ───────────────────────────
-    // Maneja el BackStack y las transiciones entre pantallas
-    implementation 'androidx.navigation:navigation-fragment:2.7.7'
-    implementation 'androidx.navigation:navigation-ui:2.7.7'
-
-    // ── ViewModel + LiveData ──────────────────────────────────
-    // Patrón MVVM: separa la lógica de la UI
-    // LiveData notifica automáticamente a la UI cuando cambian los datos
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.8.2'
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.8.2'
-    implementation 'androidx.lifecycle:lifecycle-runtime:2.8.2'
-
-    // ── RecyclerView ──────────────────────────────────────────
-    // Lista eficiente para mostrar órdenes y servicios
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
-
-    // ── SwipeRefreshLayout ────────────────────────────────────
-    // Permite jalar hacia abajo para refrescar la lista
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
-    // ── Retrofit ──────────────────────────────────────────────
-    // Cliente HTTP para llamar a la API REST de Supabase
+    // ── Jetpack Compose ───────────────────────────────────────
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.ui
+    implementation libs.compose.ui.graphics
+    implementation libs.compose.ui.tooling.preview
+    implementation libs.compose.material3
+    implementation libs.compose.material.icons
+    implementation libs.activity.compose
+    implementation libs.navigation.compose
+    implementation libs.lifecycle.viewmodel.compose
+    implementation libs.lifecycle.runtime.compose
+    implementation libs.coil.compose
+    debugImplementation libs.compose.ui.tooling
+
+    // ── Core KTX and Coroutines ──────────────────────────────
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
+
+    // ── Retrofit / Gson / OkHttp ──────────────────────────────
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
-
-    // ── OkHttp ────────────────────────────────────────────────
-    // Maneja los requests HTTP y agrega los headers de Supabase
-    // El interceptor muestra las llamadas en Logcat (solo en debug)
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
-
-    // ── Gson ──────────────────────────────────────────────────
-    // Convierte JSON de Supabase a objetos Java automáticamente
     implementation 'com.google.code.gson:gson:2.10.1'
 
-    // ── SharedPreferences cifradas ────────────────────────────
-    // Guarda el token JWT de Supabase de forma segura
+    // ── Security Crypto ───────────────────────────────────────
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 
     // ── Tests ─────────────────────────────────────────────────
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
 }

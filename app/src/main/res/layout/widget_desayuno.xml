@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#212121"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🍳 Desayunos"
+            android:textColor="#FF9800"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/widget_status_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EN VIVO"
+            android:textColor="#4CAF50"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/widget_announcement_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="📢 Anuncio del Menú"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/widget_announcement_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¡Aprovecha nuestro combo Quinua + Pan con Chicharrón!"
+        android:textColor="#CCCCCC"
+        android:textSize="11sp"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="📦 Stock Disponibles:"
+        android:textColor="#FFC107"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/widget_stock_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Panes: 45 u. | Quinua: 18L | Maca: 12L | Soya: 14L"
+        android:textColor="#E0E0E0"
+        android:textSize="10sp" />
+
+</LinearLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nombre_app">TecrobSys</string>
-    <string name="nombre_empresa">Multiservicios Tecrob Sys E.I.R.L.</string>
+    <string name="nombre_app">Desayunos</string>
+    <string name="nombre_empresa">Desayunos</string>
     <string name="version_app">v1.0.0</string>
     <string name="lbl_hola">Hola,</string>
     <string name="nav_dashboard">Inicio</string>
@@ -133,8 +133,8 @@
     <string name="msg_cliente_guardado">Cliente registrado correctamente</string>
     <string name="error_nombre_vacio">El nombre es obligatorio</string>
     <string name="error_telefono_vacio">El teléfono es obligatorio</string>
-    <string name="msg_wa_orden_recibida">Hola %1$s, hemos recibido su %2$s. Su orden es *%3$s*. Le avisaremos cuando esté listo. — TecrobSys</string>
-    <string name="msg_wa_orden_lista">Hola %1$s, su %2$s ya está listo. Presente su orden *%3$s*. Horario: Lun–Sáb 9am–6pm. — TecrobSys</string>
+    <string name="msg_wa_orden_recibida">Hola %1$s, hemos recibido su %2$s. Su orden es *%3$s*. Le avisaremos cuando esté listo. — Desayunos</string>
+    <string name="msg_wa_orden_lista">Hola %1$s, su %2$s ya está listo. Presente su orden *%3$s*. Horario: Lun–Sáb 9am–6pm. — Desayunos</string>
     <string name="lbl_cargando">Cargando…</string>
     <string name="lbl_sin_datos">Sin datos disponibles</string>
     <string name="lbl_tecnico_asignado">Técnico asignado</string>

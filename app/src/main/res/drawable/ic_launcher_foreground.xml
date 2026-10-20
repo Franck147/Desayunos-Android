@@ -1,30 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:endX="85.84757"
-                android:endY="92.4963"
-                android:startX="42.9492"
-                android:startY="49.59793"
-                android:type="linear">
-                <item
-                    android:color="#44000000"
-                    android:offset="0.0" />
-                <item
-                    android:color="#00000000"
-                    android:offset="1.0" />
-            </gradient>
-        </aapt:attr>
-    </path>
+
+    <!-- Plato Exterior (Azul Suave) -->
+    <path
+        android:fillColor="#B6CEE8"
+        android:pathData="M54,12 A42,42 0 1,1 53.9,12 Z" />
+
+    <!-- Plato Borde Interior (Azul Claro) -->
+    <path
+        android:fillColor="#D8E5F5"
+        android:pathData="M54,17 A37,37 0 1,1 53.9,17 Z" />
+
+    <!-- Plato Fondo Interior -->
+    <path
+        android:fillColor="#EDF3FB"
+        android:pathData="M54,22 A32,32 0 1,1 53.9,22 Z" />
+
+    <!-- Jamón / Tostada (Arriba Izquierda) -->
+    <path
+        android:fillColor="#E2927C"
+        android:pathData="M38,28 C48,22 62,32 58,45 C50,50 36,44 32,38 C30,34 34,30 38,28 Z" />
+    <path
+        android:fillColor="#CE7C67"
+        android:pathData="M40,30 C46,26 56,33 54,42 C48,46 38,42 35,37 Z" />
+
+    <!-- Lechuga (Izquierda) -->
+    <path
+        android:fillColor="#76C413"
+        android:pathData="M24,48 C20,54 22,66 28,72 C32,76 42,78 48,74 C44,66 40,58 38,50 C30,46 26,46 24,48 Z" />
+    <path
+        android:fillColor="#8FD820"
+        android:pathData="M26,52 C24,58 26,68 32,72 C38,74 42,66 38,56 C34,52 28,50 26,52 Z" />
+
+    <!-- Salchicha / Chorizo Asado (Abajo Derecha) -->
+    <path
+        android:fillColor="#8C2C14"
+        android:pathData="M52,78 C58,84 74,82 82,70 C88,60 88,48 82,48 C76,48 76,58 72,66 C66,72 56,74 52,78 Z" />
+    <path
+        android:strokeColor="#641C0A"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M76,54 L80,58 M70,62 L74,66 M62,70 L66,74" />
+
+    <!-- Huevo Frito (Clara Blanca Ondulada) -->
     <path
         android:fillColor="#FFFFFF"
-        android:fillType="nonZero"
-        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
-        android:strokeWidth="1"
-        android:strokeColor="#00000000" />
+        android:pathData="M52,26 C62,24 74,28 80,36 C86,44 82,56 76,62 C68,68 54,66 46,60 C38,54 36,42 42,34 C46,28 48,28 52,26 Z" />
+
+    <!-- Yema del Huevo (Amarillo Dorado) -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M58,38 A10,10 0 1,1 57.9,38 Z" />
+    <!-- Brillo en Yema -->
+    <path
+        android:fillColor="#FFE082"
+        android:pathData="M55,34 A3,3 0 1,1 54.9,34 Z" />
+
 </vector>

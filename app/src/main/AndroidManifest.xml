@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    AndroidManifest.xml — Configuración central de TecrobSys
-    Define permisos, actividades y el tema global de la app.
--->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- ── PERMISOS ──────────────────────────────────────────────── -->
-
-    <!-- Requerido para llamar a la API REST de Supabase -->
+    <!-- Permisos para notificaciones y red -->
     <uses-permission android:name="android.permission.INTERNET"/>
-
-    <!-- Verificar si hay conexión antes de hacer llamadas a Supabase -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-    <!-- Para el botón "Llamar al cliente" en el detalle de orden -->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-
-    <!-- ── APLICACIÓN ─────────────────────────────────────────────── -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/nombre_app"
+        android:label="Desayunos"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Tema.TecrobSys"
-        tools:targetApi="31">
+        android:theme="@style/Theme.Material3.DayNight.NoActionBar"
+        tools:targetApi="34">
 
-        <!--
-            ActividadLogin — Primera pantalla que ve el usuario.
-            exported="true" porque el sistema Android la lanza directamente.
-            windowSoftInputMode="adjustResize" para que el teclado
-            no tape los campos de texto.
-        -->
+        <!-- Actividad Principal Única con Compose (Cliente + Cocinero) -->
         <activity
-            android:name=".actividades.ActividadLogin"
+            android:name="com.example.desayuno.actividades.ActividadPrincipal"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -43,15 +27,18 @@
             </intent-filter>
         </activity>
 
-        <!--
-            ActividadPrincipal — Contenedor de todos los fragmentos.
-            Se abre después del login exitoso.
-            exported="false" porque solo nuestra app la abre.
-        -->
-        <activity
-            android:name=".actividades.ActividadPrincipal"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
+        <!-- Receiver para el Widget de la Pantalla de Inicio -->
+        <receiver
+            android:name="com.example.desayuno.widget.DesayunoWidgetProvider"
+            android:exported="true"
+            android:label="Stock y Anuncios de Desayunos">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/desayuno_widget_info" />
+        </receiver>
 
     </application>
 

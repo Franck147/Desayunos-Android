@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    activity_main.xml — Layout principal de TecrobSys
+    activity_main.xml — Layout principal de Desayunos
     ───────────────────────────────────────────────────
     Estructura:
       CoordinatorLayout (raíz — coordina FAB + BottomNav)
