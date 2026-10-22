@@ -2,6 +2,7 @@ package com.example.desayuno.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
@@ -16,6 +17,12 @@ import com.example.desayuno.model.UserRole
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.LifecycleStartEffect
 
 private val LightColors = lightColorScheme(
     primary = Color(0xFFD84315),
@@ -85,19 +92,32 @@ fun DesayunoApp(
     viewModel: DesayunoViewModel = viewModel()
 ) {
     val currentUser by viewModel.currentUser.collectAsState()
+    val context = LocalContext.current
+    val busy by viewModel.busy.collectAsState()
+    val message by viewModel.message.collectAsState()
+    val snackbar = remember { SnackbarHostState() }
+    LaunchedEffect(Unit) { viewModel.initialize(context) }
+    LifecycleStartEffect(currentUser?.id) {
+        viewModel.startSync()
+        onStopOrDispose { viewModel.stopSync() }
+    }
+    LaunchedEffect(message) { message?.let { snackbar.showSnackbar(it); viewModel.clearMessage() } }
 
     DesayunoTheme {
-        Surface(color = MaterialTheme.colorScheme.background) {
+        Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
             Crossfade(targetState = currentUser, label = "UserRoleTransition") { user ->
                 if (user == null) {
                     AuthScreen(viewModel = viewModel)
                 } else {
                     when (user.role) {
                         UserRole.CLIENT -> ClientMainScreen(viewModel = viewModel)
-                        UserRole.COOK -> CookMainScreen(viewModel = viewModel)
+                        UserRole.COOK, UserRole.ADMIN -> CookMainScreen(viewModel = viewModel)
                     }
                 }
             }
+            if (busy) LinearProgressIndicator(Modifier.fillMaxWidth().statusBarsPadding())
+            SnackbarHost(snackbar,Modifier.align(androidx.compose.ui.Alignment.BottomCenter)
+                .navigationBarsPadding().padding(horizontal=16.dp,vertical=if(currentUser == null) 16.dp else 88.dp))
         }
     }
 }

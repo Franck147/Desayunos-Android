@@ -4,14 +4,16 @@ import java.util.UUID
 
 enum class UserRole {
     CLIENT,
-    COOK
+    COOK,
+    ADMIN
 }
 
 data class User(
-    val id: String = UUID.randomUUID().toString(),
+    val id: String,
     val name: String,
     val phone: String,
-    val role: UserRole
+    val role: UserRole,
+    val email: String = ""
 )
 
 enum class ProductCategory(val displayName: String) {
@@ -29,7 +31,8 @@ data class MenuItem(
     val category: ProductCategory,
     val availableStock: Int,
     val isAvailable: Boolean = true,
-    val imageUrl: String? = null
+    val imageUrl: String? = null,
+    val updatedAt: String? = null
 )
 
 data class CartItem(
@@ -42,7 +45,8 @@ enum class OrderStatus(val displayName: String) {
     PENDING("En cola"),
     PREPARING("En preparación"),
     READY("¡Listo para recoger!"),
-    DELIVERED("Entregado")
+    DELIVERED("Entregado"),
+    CANCELLED("Cancelado")
 }
 
 data class OrderItem(
@@ -64,15 +68,23 @@ data class Order(
     val totalAmount: Double,
     var status: OrderStatus = OrderStatus.PENDING,
     var estimatedMinutes: Int = 3,
-    val timestamp: Long = System.currentTimeMillis()
+    val timestamp: Long = System.currentTimeMillis(),
+    val customerId: String = "",
+    val paymentMethod: String? = null,
+    val paidAt: Long? = null,
+    val paidAmount: Double? = null,
+    val paymentReference: String? = null,
+    val updatedAt: Long = timestamp
 )
 
+data class CashClosure(val date: String, val amount: Double, val paymentCount: Int)
+
 data class StockInventory(
-    var breadUnits: Int = 50,
-    var quinuaLiters: Int = 20,
-    var macaLiters: Int = 15,
-    var soyaLiters: Int = 15,
-    var extrasCount: Int = 40
+    var breadUnits: Int = 0,
+    var quinuaLiters: Int = 0,
+    var macaLiters: Int = 0,
+    var soyaLiters: Int = 0,
+    var extrasCount: Int = 0
 )
 
 data class Announcement(

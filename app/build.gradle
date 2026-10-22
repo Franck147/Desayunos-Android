@@ -7,6 +7,14 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+def localConfig = new Properties()
+def localConfigFile = rootProject.file('local.properties')
+if (localConfigFile.exists()) localConfigFile.withInputStream { localConfig.load(it) }
+def configValue = { name ->
+    def value = providers.environmentVariable(name).orElse(localConfig.getProperty(name, '')).get()
+    return '"' + value.replace('\\', '\\\\').replace('"', '\\"') + '"'
+}
+
 android {
     namespace 'com.example.desayuno'
     compileSdk 36
@@ -15,8 +23,10 @@ android {
         applicationId "com.example.desayuno"
         minSdk 26
         targetSdk 34
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 3
+        versionName "1.2.0"
+        buildConfigField 'String', 'SUPABASE_URL', configValue('SUPABASE_URL')
+        buildConfigField 'String', 'SUPABASE_ANON_KEY', configValue('SUPABASE_ANON_KEY')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -85,6 +95,10 @@ dependencies {
 
     // ── Tests ─────────────────────────────────────────────────
     testImplementation libs.junit
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    androidTestImplementation platform(libs.compose.bom)
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }

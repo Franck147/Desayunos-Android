@@ -1,41 +1,38 @@
 package com.example.desayuno.actividades
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
+import androidx.activity.viewModels
 import com.example.desayuno.notification.NotificationHelper
 import com.example.desayuno.ui.DesayunoApp
+import com.example.desayuno.ui.DesayunoViewModel
 
 class ActividadPrincipal : ComponentActivity() {
 
-    private val requestNotificationPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ -> }
+    private val appViewModel: DesayunoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         NotificationHelper.createNotificationChannel(this)
-        checkNotificationPermission()
+        openNotification(intent)
 
         setContent {
-            DesayunoApp()
+            DesayunoApp(appViewModel)
         }
     }
 
-    private fun checkNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
-        }
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        openNotification(intent)
+    }
+
+    private fun openNotification(intent: Intent?) {
+        val order=intent?.getStringExtra(NotificationHelper.EXTRA_ORDER_ID) ?: return
+        val owner=intent.getStringExtra(NotificationHelper.EXTRA_USER_ID) ?: return
+        appViewModel.requestOrderOpen(order,owner)
     }
 }

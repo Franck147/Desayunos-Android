@@ -30,7 +30,7 @@ class DesayunoWidgetProvider : AppWidgetProvider() {
             appWidgetId: Int
         ) {
             val repo = DesayunoRepository
-            val stock = repo.stockState.value
+            val menu = repo.menuState.value
             val announcements = repo.announcementsState.value
             val latestAnnouncement = announcements.firstOrNull()
 
@@ -51,7 +51,8 @@ class DesayunoWidgetProvider : AppWidgetProvider() {
                 views.setTextViewText(R.id.widget_announcement_text, "¡Haz tu pedido en la app y recógelo sin colas!")
             }
 
-            val stockText = "Panes: ${stock.breadUnits}u | Quinua: ${stock.quinuaLiters}L | Maca: ${stock.macaLiters}L | Soya: ${stock.soyaLiters}L"
+            val stockText = if (menu.isEmpty()) "Abra la app para actualizar la disponibilidad" else
+                "Carta: ${menu.count { it.isAvailable && it.availableStock > 0 }} productos disponibles · ${menu.sumOf { it.availableStock }} unidades"
             views.setTextViewText(R.id.widget_stock_info, stockText)
 
             appWidgetManager.updateAppWidget(appWidgetId, views)

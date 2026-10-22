@@ -18,10 +18,8 @@ class DesayunoRepositoryTest {
     }
 
     @Test
-    fun testMenuCatalogHasItems() {
+    fun catalogIsNotFabricatedBeforeLoadingSupabase() {
         val menu = DesayunoRepository.menuState.value
-        assert(menu.isNotEmpty())
-        val quinua = menu.find { it.name.contains("Quinua") }
-        assertNotNull(quinua)
+        assertEquals(emptyList<Any>(), menu)
     }
 }
